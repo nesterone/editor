@@ -6,6 +6,7 @@ import {
   FORMAT_SPEC,
   LOG_ERROR,
   PARSE_SPEC,
+  SAVE_SPEC,
   SET_BASEURL,
   SET_GIST_VEGA_LITE_SPEC,
   SET_GIST_VEGA_SPEC,
@@ -123,6 +124,7 @@ export default (state: State = DEFAULT_STATE, action: Action): State => {
         mode: action.mode,
         parse: false,
         selectedExample: null,
+        snapshot: false,
         tooltip: true,
         vegaLiteSpec: {},
         vegaSpec: {},
@@ -209,6 +211,11 @@ export default (state: State = DEFAULT_STATE, action: Action): State => {
       return {
         ...state,
         format: action.format,
+      };
+    case SAVE_SPEC:
+      return {
+        ...state,
+        snapshot: action.snapshot,
       };
     default:
       return state;

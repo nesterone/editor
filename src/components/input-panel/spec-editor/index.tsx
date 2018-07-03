@@ -12,6 +12,7 @@ const mapStateToProps = (state: State, ownProps) => {
     mode: state.mode,
     parse: state.parse,
     selectedExample: state.selectedExample,
+    snapshot: state.snapshot,
     value: state.editorString,
   };
 };
@@ -23,6 +24,9 @@ const mapDispatchToProps = dispatch => {
     },
     parseSpec: val => {
       dispatch(EditorActions.parseSpec(val));
+    },
+    saveSpec: val => {
+      dispatch(EditorActions.saveSpec(val));
     },
     updateEditorString: val => {
       dispatch(EditorActions.updateEditorString(val));

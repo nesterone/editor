@@ -22,6 +22,9 @@ const mapDispatchToProps = dispatch => {
     parseSpec: val => {
       dispatch(EditorActions.parseSpec(val));
     },
+    saveSpec: val => {
+      dispatch(EditorActions.saveSpec(val));
+    },
     toggleAutoParse: () => {
       dispatch(EditorActions.toggleAutoParse());
     },

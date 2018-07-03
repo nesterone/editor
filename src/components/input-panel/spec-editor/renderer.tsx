@@ -86,12 +86,15 @@ function debounce(func, wait, immediate?) {
 interface Props {
   autoParse?: boolean;
   format?: boolean;
-  history;
+  history?: any;
+  match?: any;
   mode: Mode;
   parse?: boolean;
+  snapshot?: boolean;
   value?: string;
 
   parseSpec: (val: any) => void;
+  saveSpec: (val: any) => void;
   formatSpec: (val: any) => void;
   updateEditorString: (val: any) => void;
   updateVegaLiteSpec: (val: any) => void;
@@ -103,7 +106,7 @@ const KEYCODES = {
   S: 83,
 };
 
-class Editor extends React.Component<Props, {}> {
+class Editor extends React.Component<Props> {
   constructor(props) {
     super(props);
     this.handleKeydown = this.handleKeydown.bind(this);
@@ -138,6 +141,10 @@ class Editor extends React.Component<Props, {}> {
     }
   }
   public editorWillMount(monaco) {
+    const spec = decodeURIComponent(this.props.match.params.spec);
+    if (spec) {
+      this.updateSpec(spec);
+    }
     monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
       allowComments: false,
       schemas: schemas[this.props.mode],
@@ -167,10 +174,17 @@ class Editor extends React.Component<Props, {}> {
     if (nextProps.format) {
       this.props.formatSpec(false);
     }
+    if (nextProps.snapshot) {
+      this.props.saveSpec(false);
+    }
   }
   public componentDidUpdate() {
     if (this.props.format) {
       (this.refs.editor as any).editor.getAction('editor.action.formatDocument').run();
+    }
+    if (this.props.snapshot) {
+      const serializedSpec = encodeURIComponent(stringify(JSON.parse(this.props.value)));
+      this.props.history.push('/shared/' + serializedSpec);
     }
   }
   public componentDidMount() {

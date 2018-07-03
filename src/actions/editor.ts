@@ -4,6 +4,7 @@ export const EXPORT_VEGA: 'EXPORT_VEGA' = 'EXPORT_VEGA';
 export const FORMAT_SPEC: 'FORMAT_SPEC' = 'FORMAT_SPEC';
 export const LOG_ERROR: 'LOG_ERROR' = 'LOG_ERROR';
 export const PARSE_SPEC: 'PARSE_SPEC' = 'PARSE_SPEC';
+export const SAVE_SPEC: 'SAVE_SPEC' = 'SAVE_SPEC';
 export const SET_BASEURL: 'SET_BASEURL' = 'SET_BASEURL';
 export const SET_GIST_VEGA_LITE_SPEC: 'SET_GIST_VEGA_LITE_SPEC' = 'SET_GIST_VEGA_LITE_SPEC';
 export const SET_GIST_VEGA_SPEC: 'SET_GIST_VEGA_SPEC' = 'SET_GIST_VEGA_SPEC';
@@ -37,7 +38,8 @@ export type Action =
   | ExportVega
   | SetRenderer
   | SetBaseUrl
-  | FormatSpec;
+  | FormatSpec
+  | SaveSpec;
 
 export function setMode(mode: Mode) {
   return {
@@ -182,3 +184,11 @@ export function formatSpec(value: boolean) {
   };
 }
 export type FormatSpec = ReturnType<typeof formatSpec>;
+
+export function saveSpec(value: boolean) {
+  return {
+    snapshot: value,
+    type: SAVE_SPEC,
+  };
+}
+export type SaveSpec = ReturnType<typeof saveSpec>;

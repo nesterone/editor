@@ -15,6 +15,7 @@ export interface State {
   parse: boolean;
   renderer: Renderer;
   selectedExample: string;
+  snapshot: boolean;
   tooltip: boolean;
   vegaLiteSpec: any;
   vegaSpec: any;
@@ -35,6 +36,7 @@ export const DEFAULT_STATE: State = {
   parse: false,
   renderer: 'canvas',
   selectedExample: null,
+  snapshot: false,
   tooltip: true,
   vegaLiteSpec: null,
   vegaSpec: {},

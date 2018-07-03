@@ -1,13 +1,13 @@
 import './index.css';
 
 import * as React from 'react';
-import { Code, ExternalLink, FileText, Github, Grid, Play, Trash2, X } from 'react-feather';
-import { Portal, PortalWithState } from 'react-portal';
+import { Code, ExternalLink, FileText, Github, Grid, Play, Save, Trash2, X } from 'react-feather';
+import { PortalWithState } from 'react-portal';
 import { withRouter } from 'react-router-dom';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
-import { LAYOUT, Mode } from '../../constants';
+import { Mode } from '../../constants';
 import { NAMES } from '../../constants/consts';
 import { VEGA_LITE_SPECS, VEGA_SPECS } from '../../constants/specs';
 
@@ -25,6 +25,7 @@ interface Props {
   exportVega: (val: any) => void;
   formatSpec: (val: any) => void;
   parseSpec: (val: any) => void;
+  saveSpec: (val: any) => void;
   toggleAutoParse: () => void;
 }
 
@@ -248,6 +249,12 @@ class Header extends React.Component<Props & { history: any }, State> {
         {'Export'}
       </div>
     );
+    const saveButton = (
+      <div className="header-button" onClick={() => this.props.saveSpec(true)}>
+        <Save className="header-icon" />
+        {'Snapshot'}
+      </div>
+    );
     const vega = closePortal => {
       return (
         <div className="vega">
@@ -424,6 +431,7 @@ class Header extends React.Component<Props & { history: any }, State> {
             {autoRunToggle}
           </span>
           <span>{exportButton}</span>
+          <span>{saveButton}</span>
         </section>
         <section className="right-section">
           <PortalWithState closeOnEsc>
